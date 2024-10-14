@@ -119,6 +119,7 @@ const AdminPanel = () => {
               {jobs.map((job) => (
                 <li key={job.id} className="border p-4 rounded-lg shadow-sm bg-white flex justify-between items-center">
                   <h3 className="text-lg font-semibold">{job.title}</h3>
+                  <br />
                   <div>
                     <button
                       className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700"
