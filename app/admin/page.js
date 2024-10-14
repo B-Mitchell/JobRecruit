@@ -60,7 +60,7 @@ const AdminPanel = () => {
   const handleDeleteJob = async (jobId) => {
     try {
       await supabase.from('jobs').delete().eq('id', jobId);
-      setJobs(jobs.filter((job) => job.id !== jobId));
+      setJobs(jobs.filter((job) => job.job_id !== jobId));
     } catch (err) {
       console.error('Error deleting job:', err.message);
     }
@@ -68,6 +68,7 @@ const AdminPanel = () => {
 
   const handleEditJob = (job) => {
     // Implement edit job logic
+    alert('you cannot edit jobs at this time')
   };
 
   if (loading) {
@@ -79,7 +80,7 @@ const AdminPanel = () => {
   }
 
   return (
-    <div className="flex h-screen">
+    <div className="w-[100%] overflow-x-hidden">
 
       <main className="flex-1 p-10 bg-gray-100">
         <h1 className="text-3xl font-semibold mb-6">Admin Dashboard</h1>
@@ -89,7 +90,7 @@ const AdminPanel = () => {
             <FaChartPie className="text-3xl text-blue-500 mr-4" />
             <div>
               <h2 className="text-xl font-bold">Active Jobs</h2>
-              <p className="text-lg">{analytics.activeJobs || 0}</p>
+              <p className="text-lg">{jobs.length || 0}</p>
             </div>
           </div>
 
@@ -117,13 +118,13 @@ const AdminPanel = () => {
           ) : (
             <ul className="space-y-4">
               {jobs.map((job) => (
-                <li key={job.id} className="border p-4 rounded-lg shadow-sm bg-white flex justify-between items-center">
+                <li key={job.id} className="border p-4 rounded-lg shadow-sm bg-white block md:flex justify-between items-center">
                   <h3 className="text-lg font-semibold">{job.title}</h3>
-                  <br />
-                  <div>
+                  <br/>
+                  <div >
                     <button
                       className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700"
-                      onClick={() => handleDeleteJob(job.id)}
+                      onClick={() => handleDeleteJob(job.job_id)}
                     >
                       Delete
                     </button>
