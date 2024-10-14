@@ -1,5 +1,5 @@
 'use client';
-import { useUser } from '@clerk/nextjs';
+import { useUser, SignInButton, SignedOut } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -115,12 +115,9 @@ export default function Home() {
                         <p className="text-gray-700 mb-8">
                             Sign up now to start applying for jobs or posting your openings.
                         </p>
-                        <button
-                            onClick={() => router.push('/signup')}
-                            className="px-8 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition-all"
-                        >
-                            Sign Up
-                        </button>
+                        <SignedOut>
+                            <SignInButton mode="modal" className="px-8 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition-all"/> {/* Modal login for mobile */}
+                        </SignedOut>
                     </div>
                 )}
             </div>

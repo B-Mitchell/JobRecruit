@@ -18,6 +18,11 @@ const AdminPanel = () => {
 
   useEffect(() => {
     const checkAdminAccess = () => {
+      if (!user) {
+        alert('not logged in!');
+        router.push('/');
+        return;
+      }
       if (user) {
         if (!adminEmails.includes(user.primaryEmailAddress?.emailAddress)) {
           alert("You're not an admin!");

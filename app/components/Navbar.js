@@ -35,14 +35,11 @@ const Navbar = () => {
                         {/* Signed In View */}
                         <SignedIn>
                             <UserButton /> {/* Clerk's UserButton handles profile and logout */}
-                            <span className="text-gray-800 px-3 py-2 rounded-md text-sm font-medium mt-4">
-                              {user?.firstName} {user?.lastName} {/* Display the user's name */}
-                            </span>
                         </SignedIn>
 
                         {/* Signed Out View */}
                         <SignedOut>
-                            <SignInButton mode="modal" /> {/* Modal login */}
+                            <SignInButton mode="modal" className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium"/> {/* Modal login */}
                         </SignedOut>
                     </div>
 
@@ -70,15 +67,12 @@ const Navbar = () => {
                     <br/><br/>
                     <SignedIn>
                         <UserButton /> {/* Clerk's UserButton for mobile view */}
-                        <span className="text-gray-800 block px-3 py-2 rounded-md text-base font-medium">
-                          {user?.firstName} {user?.lastName} {/* Display the user's name */}
-                        </span>
                     </SignedIn>
 
                     {/* Signed Out View */}
-                    <br/><br/>
+                    <br/>
                     <SignedOut>
-                        <SignInButton mode="modal" /> {/* Modal login for mobile */}
+                        <SignInButton mode="modal" className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]"/> {/* Modal login for mobile */}
                     </SignedOut>
                 </div>
             </div>
