@@ -15,7 +15,7 @@ export default function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 overflow-x-hidden">
             {/* Hero Section */}
             <div className="relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
                 <div className="container mx-auto px-6 py-20 text-center">
@@ -95,7 +95,7 @@ export default function Home() {
                 {/* Popular Job Categories */}
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-semibold mb-8">Popular Job Categories</h2>
-                    <div className="flex justify-center space-x-4">
+                    <div className="flex justify-center space-x-4 overflow-x-scroll scroll-smooth">
                         {['Technology', 'Finance', 'Healthcare', 'Education', 'Marketing'].map((category) => (
                             <div
                                 key={category}
