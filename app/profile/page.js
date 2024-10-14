@@ -59,7 +59,7 @@ const Profile = () => {
             <div className="max-w-3xl mx-auto my-12 p-8 bg-white shadow-xl rounded-lg">
                 <h1 className="text-3xl font-bold text-gray-800 mb-4">No Profile Found</h1>
                 <p className="text-lg text-gray-600 mb-6">
-                    It seems like you haven't completed your profile yet.
+                    It seems like you haven{`'`}t completed your profile yet.
                 </p>
                 <button
                     className="bg-gradient-to-r from-blue-600 to-teal-600 text-white py-3 px-6 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"

@@ -74,7 +74,7 @@ const ChatPage = () => {
     } else {
       fetchMessages(); // Fetch messages if the user is signed in
     }
-  }, [isSignedIn, user]);
+  }, []);
 
   if (loading) {
     return (

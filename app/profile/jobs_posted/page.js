@@ -32,7 +32,7 @@ const EmployerJobsPage = () => {
     if (user) {
       fetchEmployerJobs();
     }
-  }, [user]);
+  }, []);
 
   if (loading) {
     return <div className="text-center mt-12">Loading your job postings...</div>;
@@ -49,7 +49,7 @@ const EmployerJobsPage = () => {
       </div>
 
       {jobs.length === 0 ? (
-        <p className="text-center text-gray-600">You haven't posted any jobs yet.</p>
+        <p className="text-center text-gray-600">You haven not posted any jobs yet.</p>
       ) : (
         <ul className="space-y-6">
           {jobs.map((job) => (
