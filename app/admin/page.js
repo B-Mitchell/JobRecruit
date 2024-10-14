@@ -148,7 +148,7 @@ const AdminPanel = () => {
           ) : (
             <ul className="space-y-4">
               {users.map((user) => (
-                <li key={user.id} className="border p-4 rounded-lg shadow-sm bg-white flex justify-between items-center">
+                <li key={user.id} className="border p-4 rounded-lg shadow-sm bg-white flex justify-between items-center overflow-hidden">
                   <h3 className="text-base">{user.email}</h3>
                   <div>
                     {/* Add user management actions here */}
