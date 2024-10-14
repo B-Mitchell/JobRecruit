@@ -9,7 +9,7 @@ const AdminPanel = () => {
   const { user } = useUser();
   const router = useRouter();
 
-  const adminEmails = ['mitchellonuorah77@gmail.com', 'onuorahugochukwu900@gmail.com'];
+  const adminEmails = ['mitchellonuorah77@gmail.com', 'onuorahugochukwu900@gmail.com', 'ebubevictor042@gmail.com'];
   const [jobs, setJobs] = useState([]);
   const [users, setUsers] = useState([]);
   const [analytics, setAnalytics] = useState({});

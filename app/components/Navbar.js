@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SignedIn, SignInButton, SignedOut, UserButton, useUser } from '@clerk/nextjs';
 
@@ -30,6 +30,9 @@ const Navbar = () => {
                         <button onClick={() => handleNavigation('/')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Home</button>
                         { isSignedIn && <button onClick={() => handleNavigation('/profile')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">profile</button>}
                         <button onClick={() => handleNavigation('/jobs')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Jobs</button>
+                        {
+                            isSignedIn && <button className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium" onClick={() => handleNavigation('/profile/jobs_posted')}>chat</button>
+                        }
                         <button onClick={() => handleNavigation('/admin')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Admin</button>
 
                         {/* Signed In View */}
@@ -61,6 +64,9 @@ const Navbar = () => {
                     <button onClick={() => handleNavigation('/')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Home</button>
                     {  isSignedIn && <button onClick={() => handleNavigation('/profile')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Profile</button>}
                     <button onClick={() => handleNavigation('/jobs')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Jobs</button>
+                    {
+                        isSignedIn && <button className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]" onClick={() => handleNavigation('/profile/jobs_posted')}>chat</button>
+                    }
                     <button onClick={() => handleNavigation('/admin')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Admin</button>
 
                     {/* Signed In View */}

@@ -49,7 +49,7 @@ const JobApplicantsPage = ({ params }) => {
 
   useEffect(() => {
     if (!isSignedIn) {
-      router.push('/sign-in');
+      router.push('/');
     } else if (user) {
       checkUserRole();
       fetchApplicants();
@@ -95,7 +95,6 @@ const JobApplicantsPage = ({ params }) => {
             <li 
               key={applicant.id} 
               className="border p-6 rounded-lg shadow-sm hover:bg-gray-100 cursor-pointer transition-colors"
-              onClick={() => router.push(`/profile/jobs_posted/${jobId}/${applicant.user_id}`)}
             >
               <h2 className="text-xl font-semibold">{applicant.name}</h2>
               <p className="text-gray-600">Email: {applicant.email}</p>
@@ -126,6 +125,13 @@ const JobApplicantsPage = ({ params }) => {
                   <span className="text-gray-500">No cover letter provided</span>
                 )}
               </p>
+              <div className='flex justify-end items-center mt-0 mb-0'>
+                <button
+                  className="py-2 px-5 rounded-md bg-gradient-to-r from-blue-600 to-teal-600 text-white transition-colors"
+                  onClick={() => router.push(`/profile/jobs_posted/${jobId}/${applicant.user_id}`)}
+                >send message</button>
+              </div>
+              
             </li>
           ))}
         </ul>

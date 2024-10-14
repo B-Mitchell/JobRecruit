@@ -49,7 +49,7 @@ const EmployerJobsPage = () => {
       </div>
 
       {jobs.length === 0 ? (
-        <p className="text-center text-gray-600">You haven not posted any jobs yet.</p>
+        <p className="text-center text-gray-600">You have not posted any jobs yet.</p>
       ) : (
         <ul className="space-y-6">
           {jobs.map((job) => (
