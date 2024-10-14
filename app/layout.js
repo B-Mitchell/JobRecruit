@@ -4,7 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import "./globals.css";
 
 export const metadata = {
-  title: 'Job Reccruitment system',
+  title: 'Job Recruitment system',
   description: 'Built by Big Mitch',
 }
 
