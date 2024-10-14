@@ -122,8 +122,11 @@ const PostJobPage = () => {
 
     // If user is signed in and is an employer, render the job posting form
     return (
-        <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
-            <h1 className="text-2xl font-semibold mb-6">Post a New Job</h1>
+        <div className="max-w-3xl mx-auto my-10 px-6 pb-6 bg-white shadow-md rounded-lg">
+            <div className="bg-gradient-to-r from-blue-500 to-teal-400 p-6 rounded-md text-white mb-8">
+                <h1 className="text-3xl font-semibold">Post a New Job</h1>
+            </div>
+            
 
             <form onSubmit={handlePostJob} className="space-y-4">
                 <div>
@@ -234,7 +237,7 @@ const PostJobPage = () => {
 
                 <button
                     type="submit"
-                    className="w-full bg-green-600 text-white py-2 rounded-md font-semibold"
+                    className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white py-3 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"
                     disabled={loading}
                 >
                     {loading ? 'Posting Job...' : 'Post Job'}

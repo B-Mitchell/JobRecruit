@@ -1,19 +1,21 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/supabase'; // Your Supabase instance
 import { useUser } from '@clerk/nextjs'; // Clerk for authentication
 import { useRouter } from 'next/navigation';
 
-const Page = ({ params }) => {
+const ChatPage = ({ params }) => {
   const { user, isSignedIn } = useUser(); // Get the current user
-  const senderID = params.messages; // Get the employer's ID
-  const [jobId, setJobId] = useState(null); // State to store the job ID
+  const senderID = params.messages; // Get the employer's ID from the params
+  const [jobId, setJobId] = useState(null); // Store the job ID
+  const [messages, setMessages] = useState([]); // Store messages
+  const [newMessage, setNewMessage] = useState(''); // Input for new message
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [messages, setMessages] = useState([]); // State to store messages
-  const [newMessage, setNewMessage] = useState(''); // State for new message input
+  const router = useRouter();
 
-  // Fetch the job ID based on senderID and current user ID
+  // Fetch the job ID based on senderID and the current user (job seeker)
   const fetchJobId = async () => {
     try {
       const { data, error } = await supabase
@@ -21,57 +23,51 @@ const Page = ({ params }) => {
         .select('job_id')
         .eq('sender_id', senderID)
         .eq('recipient_id', user.id)
-        .limit(1); // Limit to 1 entry to ensure you only get one row
-  
-      if (error) throw error;
+        .limit(1); // Only need one row
 
-      if (data && data.length > 0) {
-        setJobId(data[0].job_id); // Set the job ID from the first entry
-      } else {
-        throw new Error('No job ID found');
-      }
+      if (error) throw error;
+      if (data.length > 0) setJobId(data[0].job_id);
+      else throw new Error('No job ID found');
     } catch (err) {
-      setError('Error fetching job ID: ' + err.message);
-      console.error(err);
-    } finally {
-      setLoading(false);
+      setError(`Error fetching job ID: ${err.message}`);
     }
   };
 
-  // Fetch messages for the current chat
+  // Fetch messages between job seeker and employer
   const fetchMessages = async () => {
     try {
       const { data: messagesSent, error: errorSent } = await supabase
         .from('messages')
         .select('*')
-        .eq('sender_id', user.id) // Job Seeker ID
-        .eq('recipient_id', senderID); // Employer ID
+        .eq('sender_id', user.id)
+        .eq('recipient_id', senderID);
 
       const { data: messagesReceived, error: errorReceived } = await supabase
         .from('messages')
         .select('*')
-        .eq('sender_id', senderID) // Employer ID
-        .eq('recipient_id', user.id); // Job Seeker ID
+        .eq('sender_id', senderID)
+        .eq('recipient_id', user.id);
 
       if (errorSent || errorReceived) {
-        console.error('Error fetching messages:', errorSent || errorReceived);
-        setError('Could not fetch messages');
+        throw new Error(errorSent || errorReceived);
       } else {
-        // Combine and sort messages
-        setMessages([...messagesSent, ...messagesReceived].sort((a, b) => new Date(a.created_at) - new Date(b.created_at)));
+        // Combine and sort messages by created_at
+        const combinedMessages = [...messagesSent, ...messagesReceived].sort(
+          (a, b) => new Date(a.created_at) - new Date(b.created_at)
+        );
+        setMessages(combinedMessages);
       }
     } catch (err) {
-      console.error('Error fetching messages:', err.message);
-      setError('Could not fetch messages');
+      setError(`Error fetching messages: ${err.message}`);
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 
   // Send a new message
   const sendMessage = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    if (!newMessage.trim()) return; // Do not send if the message is empty
+    e.preventDefault();
+    if (!newMessage.trim()) return; // Prevent sending empty messages
 
     try {
       const { error } = await supabase
@@ -80,36 +76,30 @@ const Page = ({ params }) => {
           job_id: jobId,
           sender_id: user.id, // Job seeker's ID
           recipient_id: senderID, // Employer's ID
-          message_content: newMessage, // The actual message
-          created_at: new Date().toISOString(), // Timestamp for the message
+          message_content: newMessage,
+          created_at: new Date().toISOString(),
         });
 
       if (error) throw error;
 
-      setNewMessage(''); // Clear the input field after sending
-      fetchMessages(); // Fetch messages again to update the list
+      setNewMessage(''); // Clear input after sending
+      fetchMessages(); // Refresh message list
     } catch (err) {
-      setError('Error sending message: ' + err.message);
-      console.error(err);
+      setError(`Error sending message: ${err.message}`);
     }
   };
 
   useEffect(() => {
     if (!isSignedIn) {
-      router.push('/'); // Redirect to sign-in if not logged in
-      return;
+      router.push('/'); // Redirect if not signed in
+    } else {
+      fetchJobId(); // Fetch job ID on mount
+      fetchMessages(); // Fetch messages
     }
-    if (user) { // Ensure user is defined before fetching
-      fetchJobId(); // Fetch job ID when the component mounts
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchMessages(); // Fetch messages when jobId changes
   }, []);
 
   if (loading) {
-    return <div className="text-center mt-12">Loading job details...</div>;
+    return <div className="text-center mt-12">Loading chat...</div>;
   }
 
   if (error) {
@@ -119,7 +109,7 @@ const Page = ({ params }) => {
   return (
     <div className="max-w-4xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-semibold mb-6">Private Chat</h1>
-      
+
       {/* Messages List */}
       <div className="mb-6 border rounded-md p-4 max-h-72 overflow-y-scroll">
         {messages.length === 0 ? (
@@ -133,7 +123,7 @@ const Page = ({ params }) => {
                   msg.sender_id === user.id ? 'bg-blue-100' : 'bg-gray-100'
                 }`}
               >
-                <p className='font-bold'>{msg.sender_id === user.id ? 'You:' : 'Employer:'}</p>
+                <p className="font-bold">{msg.sender_id === user.id ? 'You:' : 'Employer:'}</p>
                 <p>{msg.message_content}</p>
                 <span className="block text-sm text-gray-500 mt-2">
                   {new Date(msg.created_at).toLocaleString()}
@@ -143,7 +133,7 @@ const Page = ({ params }) => {
           </ul>
         )}
       </div>
-      
+
       {/* Send Message Form */}
       <form onSubmit={sendMessage} className="flex space-x-4">
         <textarea
@@ -163,4 +153,4 @@ const Page = ({ params }) => {
   );
 };
 
-export default Page;
+export default ChatPage;

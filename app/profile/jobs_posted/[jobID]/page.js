@@ -8,7 +8,7 @@ const JobApplicantsPage = ({ params }) => {
   const { user, isSignedIn } = useUser();
   const router = useRouter();
   const jobId = params.jobID;
-  
+
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -69,23 +69,34 @@ const JobApplicantsPage = ({ params }) => {
   };
 
   if (loading) {
-    return <div className="text-center mt-12">Loading applicants...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className='text-xl text-gray-700'>Loading applicants...</p>
+      </div>
+    ); // Loading state
   }
 
   if (error) {
-    return <div className="text-center mt-12 text-red-500">{error}</div>;
+    return <div className="text-center mt-12 text-red-500">{error}</div>; // Error state
   }
 
   return (
-    <div className="max-w-5xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-semibold mb-6">Applicants</h1>
+    <div className="max-w-5xl mx-auto my-10 px-6 pb-6 bg-white shadow-md rounded-lg">
+      <div className="bg-gradient-to-r from-blue-500 to-teal-400 p-6 rounded-md text-white mb-8">
+        <h1 className="text-3xl font-semibold">Job Applicants</h1>
+      </div>
+      
 
       {applicants.length === 0 ? (
         <p>No applicants have applied for this job yet.</p>
       ) : (
         <ul className="space-y-4">
           {applicants.map((applicant) => (
-            <li key={applicant.id} className="border p-4 rounded-lg shadow-sm hover:bg-gray-100 cursor-pointer" onClick={() => router.push(`/profile/jobs_posted/${jobId}/${applicant.user_id}`)}>
+            <li 
+              key={applicant.id} 
+              className="border p-6 rounded-lg shadow-sm hover:bg-gray-100 cursor-pointer transition-colors"
+              onClick={() => router.push(`/profile/jobs_posted/${jobId}/${applicant.user_id}`)}
+            >
               <h2 className="text-xl font-semibold">{applicant.name}</h2>
               <p className="text-gray-600">Email: {applicant.email}</p>
               <a 
@@ -112,7 +123,7 @@ const JobApplicantsPage = ({ params }) => {
                     </button>
                   </>
                 ) : (
-                  'No cover letter provided'
+                  <span className="text-gray-500">No cover letter provided</span>
                 )}
               </p>
             </li>

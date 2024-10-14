@@ -30,8 +30,6 @@ const Navbar = () => {
                         <button onClick={() => handleNavigation('/')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Home</button>
                         { isSignedIn && <button onClick={() => handleNavigation('/profile')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">profile</button>}
                         <button onClick={() => handleNavigation('/jobs')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Jobs</button>
-                        <button onClick={() => handleNavigation('/employers')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Employers</button>
-
                         <button onClick={() => handleNavigation('/admin')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Admin</button>
 
                         {/* Signed In View */}
@@ -66,7 +64,6 @@ const Navbar = () => {
                     <button onClick={() => handleNavigation('/')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Home</button>
                     {  isSignedIn && <button onClick={() => handleNavigation('/profile')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Profile</button>}
                     <button onClick={() => handleNavigation('/jobs')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Jobs</button>
-                    <button onClick={() => handleNavigation('/employers')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Employers</button>
                     <button onClick={() => handleNavigation('/admin')} className="text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium w-[100%]">Admin</button>
 
                     {/* Signed In View */}

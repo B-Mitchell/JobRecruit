@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import { supabase } from '@/app/supabase';
 import { useUser } from '@clerk/nextjs';
@@ -31,7 +32,7 @@ const EmployerJobsPage = () => {
     if (user) {
       fetchEmployerJobs();
     }
-  }, []);
+  }, [user]);
 
   if (loading) {
     return <div className="text-center mt-12">Loading your job postings...</div>;
@@ -42,32 +43,46 @@ const EmployerJobsPage = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-semibold mb-6">Your Job Postings</h1>
+    <div className="max-w-5xl mx-auto my-10 px-8 pb-8 bg-white shadow-lg rounded-lg">
+      <div className="bg-gradient-to-r from-blue-500 to-teal-400 p-6 rounded-md text-white mb-8">
+        <h1 className="text-3xl font-semibold">Your Job Postings</h1>
+      </div>
 
       {jobs.length === 0 ? (
-        <p>No jobs posted yet.</p>
+        <p className="text-center text-gray-600">You haven't posted any jobs yet.</p>
       ) : (
-        <ul className="space-y-4">
+        <ul className="space-y-6">
           {jobs.map((job) => (
-            <li 
-              key={job.id} 
-              className="border p-4 rounded-lg shadow-sm hover:bg-gray-100 cursor-pointer"
+            <li
+              key={job.id}
+              className="border border-gray-300 p-6 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-50 transition-all cursor-pointer"
             >
-              <h2 className="text-xl font-semibold">{job.title}</h2>
-              <p className="text-gray-600">{job.description}</p>
-              <p className="font-medium">Salary: {job.salary}</p>
-              <p className="font-medium">Location: {job.location}</p>
-              <p className="font-medium">Job Type: {job.job_type}</p>
-              <p className="font-medium">Category: {job.category}</p>
-              <p className="font-medium">Posted On: {new Date(job.created_at).toLocaleDateString()}</p>
-              
-              {/* Centered Button */}
-              <div className="flex justify-end mt-4">
-                <button className='bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors mr-5' onClick={() => router.push(`/profile/jobs_posted/${job.job_id}`)}>
+              <div className="flex justify-between items-start">
+                <div>
+                  <h2 className="text-2xl font-semibold text-gray-800">{job.title}</h2>
+                  <p className="text-gray-600 mt-2">{job.description}</p>
+                  <div className="mt-4 space-y-1">
+                    <p className="text-sm font-medium text-gray-700">Salary: {job.salary}</p>
+                    <p className="text-sm font-medium text-gray-700">Location: {job.location}</p>
+                    <p className="text-sm font-medium text-gray-700">Job Type: {job.job_type}</p>
+                    <p className="text-sm font-medium text-gray-700">Category: {job.category}</p>
+                    <p className="text-sm text-gray-500">Posted on: {new Date(job.created_at).toLocaleDateString()}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Buttons Section */}
+              <div className="flex justify-end items-center space-x-4 mt-6">
+                <button
+                  className="py-2 px-5 rounded-md bg-gradient-to-r from-blue-600 to-teal-600 text-white transition-colors"
+                  onClick={() => router.push(`/profile/jobs_posted/${job.job_id}`)}
+                >
                   See Applicants
                 </button>
-                <button className='bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors' onClick={() => router.push(`/profile/jobs_posted/applications/${job.job_id}`)}>
+                <button
+                  className="py-2 px-5 rounded-md bg-gradient-to-r from-green-600 to-blue-600 text-white transition-colors"
+                  onClick={() => router.push(`/profile/jobs_posted/applications/${job.job_id}`)}
+                >
                   View Applications
                 </button>
               </div>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../supabase';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+import { FaUserCircle, FaRegBuilding, FaEnvelope, FaGraduationCap, FaBriefcase, FaFileAlt, FaGlobe } from 'react-icons/fa';
 
 const Profile = () => {
     const { isSignedIn, user } = useUser();
@@ -29,41 +30,39 @@ const Profile = () => {
         }
     };
 
-    // Use useEffect to fetch profile data when the component mounts
     useEffect(() => {
         if (isSignedIn && user) {
             fetchProfile();
         }
     }, []);
 
-    // If the user is not signed in, redirect or show a sign-in message
     if (!isSignedIn) {
         return (
-            <div className="flex justify-center items-center h-screen bg-gray-100">
-                <div className="text-xl text-gray-600">
+            <div className="flex justify-center items-center h-screen ">
+                <div className="text-xl text-gray-700">
                     Please sign in to view your profile.
                 </div>
             </div>
         );
     }
 
-    // If data is loading, show a loading message
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-screen bg-gray-100">
-                <div className="text-xl text-gray-600">Loading...</div>
+            <div className="flex justify-center items-center h-screen ">
+                <div className="text-xl text-gray-700">Loading...</div>
             </div>
         );
     }
 
-    // If no profile exists, show a button to complete the profile
     if (!profileData) {
         return (
-            <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
-                <h1 className="text-2xl font-semibold mb-6">No Profile Found</h1>
-                <p className="mb-4">It looks like you haven not completed your profile yet.</p>
+            <div className="max-w-3xl mx-auto my-12 p-8 bg-white shadow-xl rounded-lg">
+                <h1 className="text-3xl font-bold text-gray-800 mb-4">No Profile Found</h1>
+                <p className="text-lg text-gray-600 mb-6">
+                    It seems like you haven't completed your profile yet.
+                </p>
                 <button
-                    className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+                    className="bg-gradient-to-r from-blue-600 to-teal-600 text-white py-3 px-6 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"
                     onClick={() => router.push('/profile/complete_profile')}
                 >
                     Complete Your Profile
@@ -72,93 +71,135 @@ const Profile = () => {
         );
     }
 
-    // Display the user's profile data
     return (
-        <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
-            <h1 className="text-2xl font-semibold mb-6">Profile</h1>
-            <p className="text-lg font-medium mb-4">
-                Role: {profileData.role === 'job_seeker' ? 'Job Seeker' : 'Employer'}
-            </p>
+        <div className="max-w-4xl mx-auto my-12 p-8 bg-white shadow-xl rounded-lg relative">
+            <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-r from-blue-500 to-teal-400 rounded-t-lg"></div>
 
-            <div className="mb-6">
-                <p className="text-xl font-medium mb-2">Name: {profileData.name}</p>
-                <p className="text-lg text-gray-600">Email: {profileData.email}</p>
-                <br />
-                <hr />
-                <br />
+            <div className="relative -mt-24 flex items-center justify-center">
+                <FaUserCircle className="text-white text-9xl shadow-md rounded-full" />
             </div>
 
-            {/* Job Seeker Fields */}
-            {profileData.role === 'job_seeker' && (
-                <>
-                    <div className="mb-4">
-                        <h2 className="text-xl font-medium">Skills</h2>
-                        <p>{profileData.skills?.join(', ') || 'No skills provided'}</p>
-                    </div>
+            <h1 className="text-4xl font-bold text-center mt-6 text-gray-800">Profile</h1>
+            <p className="text-lg text-center text-gray-500 mt-2">
+                {profileData.role === 'job_seeker' ? 'Job Seeker' : 'Employer'}
+            </p>
 
-                    <div className="mb-4">
-                        <h2 className="text-xl font-medium">Education</h2>
-                        <p>{profileData.education || 'No education details provided'}</p>
+            <div className="mt-8 space-y-8">
+                <div className="flex items-center space-x-4">
+                    <FaEnvelope className="text-2xl text-blue-500" />
+                    <div>
+                        <p className="text-lg font-medium text-gray-800">Email</p>
+                        <p className="text-md text-gray-600">{profileData.email}</p>
                     </div>
+                </div>
 
-                    <div className="mb-4">
-                        <h2 className="text-xl font-medium">Experience</h2>
-                        <p>{profileData.experience || 'No experience details provided'}</p>
-                    </div>
+                {profileData.role === 'job_seeker' && (
+                    <>
+                        <div className="flex items-center space-x-4">
+                            <FaGraduationCap className="text-2xl text-blue-500" />
+                            <div>
+                                <p className="text-lg font-medium text-gray-800">Education</p>
+                                <p className="text-md text-gray-600">{profileData.education || 'Not provided'}</p>
+                            </div>
+                        </div>
 
-                    <div className="mb-4">
-                        <h2 className="text-xl font-medium">Resume URL</h2>
-                        {profileData.resume_url ? (
-                            <a href={profileData.resume_url} target="_blank" className="text-blue-500 underline">
-                                View Resume
-                            </a>
-                        ) : (
-                            <p>No resume uploaded</p>
-                        )}
-                    </div>
-                </>
-            )}
+                        <div className="flex items-center space-x-4">
+                            <FaBriefcase className="text-2xl text-blue-500" />
+                            <div>
+                                <p className="text-lg font-medium text-gray-800">Experience</p>
+                                <p className="text-md text-gray-600">{profileData.experience || 'Not provided'}</p>
+                            </div>
+                        </div>
 
-            {/* Employer Fields */}
-            {profileData.role === 'employer' && (
-                <>
-                    <div className="mb-4">
-                        <h2 className="text-xl font-medium">Company Name</h2>
-                        <p>{profileData.company_name || 'No company name provided'}</p>
-                    </div>
+                        <div className="flex items-center space-x-4">
+                            <FaFileAlt className="text-2xl text-blue-500" />
+                            <div>
+                                <p className="text-lg font-medium text-gray-800">Resume</p>
+                                {profileData.resume_url ? (
+                                    <a
+                                        href={profileData.resume_url}
+                                        target="_blank"
+                                        className="text-md text-blue-500 underline"
+                                    >
+                                        View Resume
+                                    </a>
+                                ) : (
+                                    <p className="text-md text-gray-600">Not provided</p>
+                                )}
+                            </div>
+                        </div>
+                    </>
+                )}
 
-                    <div className="mb-4">
-                        <h2 className="text-xl font-medium">Company Profile</h2>
-                        <p>{profileData.company_profile || 'No company profile provided'}</p>
-                    </div>
+                {profileData.role === 'employer' && (
+                    <>
+                        <div className="flex items-center space-x-4">
+                            <FaRegBuilding className="text-2xl text-blue-500" />
+                            <div>
+                                <p className="text-lg font-medium text-gray-800">Company Name</p>
+                                <p className="text-md text-gray-600">{profileData.company_name || 'Not provided'}</p>
+                            </div>
+                        </div>
 
-                    <div className="mb-4">
-                        <h2 className="text-xl font-medium">Company Website</h2>
-                        {profileData.company_website ? (
-                            <a href={profileData.company_website} target="_blank" className="text-blue-500 underline">
-                                Visit Website
-                            </a>
-                        ) : (
-                            <p>No company website provided</p>
-                        )}
-                    </div>
-                </>
-            )}
+                        <div className="flex items-center space-x-4">
+                            <FaFileAlt className="text-2xl text-blue-500" />
+                            <div>
+                                <p className="text-lg font-medium text-gray-800">Company Profile</p>
+                                <p className="text-md text-gray-600">{profileData.company_profile || 'Not provided'}</p>
+                            </div>
+                        </div>
 
-            {/* Styled button */}
-            <button
-                className="w-full bg-green-600 text-white py-2 rounded-md mt-6 hover:bg-green-700 transition-colors"
-                onClick={() => 
-                    profileData.role === 'employer' 
-                        ? router.push('/profile/jobs_posted') 
-                        : router.push('/profile/applications')
-                }
-            >
-                View all {profileData.role === 'employer' ? 'jobs posted' : 'applications'}
-            </button>
-            
-            {profileData.role === 'job_seeker' && <button className="w-full bg-green-600 text-white py-2 rounded-md mt-6 hover:bg-green-700 transition-colors" onClick={() => router.push('/profile/chats')}>view chats</button>}
-            {profileData.role === 'employer' && <button className="w-full bg-green-600 text-white py-2 rounded-md mt-6 hover:bg-green-700 transition-colors" onClick={() => router.push('/profile/post_job')}>Post Job</button>}
+                        <div className="flex items-center space-x-4">
+                            <FaGlobe className="text-2xl text-blue-500" />
+                            <div>
+                                <p className="text-lg font-medium text-gray-800">Company Website</p>
+                                {profileData.company_website ? (
+                                    <a
+                                        href={profileData.company_website}
+                                        target="_blank"
+                                        className="text-md text-blue-500 underline"
+                                    >
+                                        Visit Website
+                                    </a>
+                                ) : (
+                                    <p className="text-md text-gray-600">Not provided</p>
+                                )}
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
+
+            <div className="mt-8 flex flex-col space-y-4">
+                <button
+                    className="w-full bg-gradient-to-r from-green-500 to-teal-500 text-white py-3 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"
+                    onClick={() =>
+                        profileData.role === 'employer'
+                            ? router.push('/profile/jobs_posted')
+                            : router.push('/profile/applications')
+                    }
+                >
+                    View {profileData.role === 'employer' ? 'Jobs Posted' : 'Applications'}
+                </button>
+
+                {profileData.role === 'job_seeker' && (
+                    <button
+                        className="w-full bg-gradient-to-r from-green-500 to-teal-500 text-white py-3 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"
+                        onClick={() => router.push('/profile/chats')}
+                    >
+                        View Chats
+                    </button>
+                )}
+
+                {profileData.role === 'employer' && (
+                    <button
+                        className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white py-3 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"
+                        onClick={() => router.push('/profile/post_job')}
+                    >
+                        Post a Job
+                    </button>
+                )}
+            </div>
         </div>
     );
 };

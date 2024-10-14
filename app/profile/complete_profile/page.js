@@ -125,7 +125,9 @@ const Profile = () => {
     // Render the profile form
     return (
         <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
-            <h1 className="text-2xl font-semibold mb-6">Complete Your Profile</h1>
+            <div className="bg-gradient-to-r from-blue-500 to-teal-400 p-6 rounded-md text-white mb-8">
+                <h1 className="text-3xl font-semibold">Complete Your Profile</h1>
+            </div>
 
             {/* Toggle for Role */}
             <div className="mb-4">
@@ -240,7 +242,9 @@ const Profile = () => {
                 )}
 
                 {/* Submit Button */}
-                <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-md">
+                <button type="submit" 
+                className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white py-3 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"
+                >
                     {submitting ? 'submittiing' : 'complete profile'}
                 </button>
             </form>
