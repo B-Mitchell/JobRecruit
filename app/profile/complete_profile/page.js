@@ -82,7 +82,7 @@ const Profile = () => {
                 <p>Your profile has already been completed.</p>
                 <button
                     onClick={() => router.push('/profile')} // Redirect to the dashboard or profile page
-                    className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md"
+                    className=" mt-4 bg-gradient-to-r from-blue-600 to-teal-600 text-white py-3 px-6 rounded-full shadow-lg hover:scale-105 transform transition-all duration-200"
                 >
                     Go to profile
                 </button>

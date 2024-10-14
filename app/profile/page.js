@@ -75,16 +75,18 @@ const Profile = () => {
         <div className="max-w-4xl mx-auto my-12 p-8 bg-white shadow-xl rounded-lg relative">
             <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-r from-blue-500 to-teal-400 rounded-t-lg"></div>
 
-            <div className="relative -mt-24 flex items-center justify-center">
+            <div className="relative -mt-6 flex items-center justify-center">
                 <FaUserCircle className="text-white text-9xl shadow-md rounded-full" />
             </div>
 
-            <h1 className="text-4xl font-bold text-center mt-6 text-gray-800">Profile</h1>
-            <p className="text-lg text-center text-gray-500 mt-2">
-                {profileData.role === 'job_seeker' ? 'Job Seeker' : 'Employer'}
-            </p>
+            <h1 className="text-4xl font-bold text-center mt-6 text-white">Profile</h1>
 
             <div className="mt-8 space-y-8">
+                <div >
+                <p className="text-lg text-center text-gray-500 mt-2 mb-0">
+                    {profileData.role === 'job_seeker' ? 'Job Seeker' : 'Employer'}
+                </p>
+                </div>
                 <div className="flex items-center space-x-4">
                     <FaEnvelope className="text-2xl text-blue-500" />
                     <div>
