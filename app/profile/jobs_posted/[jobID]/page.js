@@ -131,7 +131,6 @@ const JobApplicantsPage = ({ params }) => {
                   onClick={() => router.push(`/profile/jobs_posted/${jobId}/${applicant.user_id}`)}
                 >send message</button>
               </div>
-              
             </li>
           ))}
         </ul>
