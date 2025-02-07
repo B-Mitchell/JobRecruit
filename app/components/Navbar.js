@@ -31,7 +31,7 @@ const Navbar = () => {
                         { isSignedIn && <button onClick={() => handleNavigation('/profile')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">profile</button>}
                         <button onClick={() => handleNavigation('/jobs')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Jobs</button>
                         {
-                            isSignedIn && <button className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium" onClick={() => handleNavigation('/profile/jobs_posted')}>chat</button>
+                            isSignedIn && <button className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium" onClick={() => handleNavigation('/profile/jobs_posted')}>jobs posted</button>
                         }
                         <button onClick={() => handleNavigation('/admin')} className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md font-medium">Admin</button>
 

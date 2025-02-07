@@ -79,8 +79,6 @@ const PostJobPage = () => {
                 });
 
             if (error) throw error;
-
-            console.log('Job posted:', data);
             alert('posting successful!')
             setJobData({title: '',
             description: '',
