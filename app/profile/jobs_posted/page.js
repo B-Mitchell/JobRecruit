@@ -171,7 +171,7 @@ const EmployerJobsPage = () => {
           {jobs.map((job) => (
             <li
               key={job.id}
-              className="border border-gray-300 p-6 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-50 transition-all cursor-pointer"
+              className="border border-gray-300 p-4 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-50 transition-all cursor-pointer"
             >
               <div className="flex justify-between items-start">
                 <div>
@@ -188,21 +188,21 @@ const EmployerJobsPage = () => {
               </div>
 
               {/* Buttons Section */}
-              <div className="flex justify-end items-center space-x-4 mt-6">
+              <div className="flex m-auto w-[100%] justify-between items-center space-x-2 mt-6">
                 <button
-                  className="py-2 px-5 rounded-md bg-gradient-to-r from-blue-600 to-teal-600 text-white transition-colors"
+                  className="p-2 w-[30%] md:text-[1rem] text-[.8rem] rounded-md bg-gradient-to-r from-blue-600 to-teal-600 text-white transition-colors"
                   onClick={() => router.push(`/profile/jobs_posted/${job.job_id}`)}
                 >
                   See Applicants
                 </button>
                 <button
-                  className="py-2 px-5 rounded-md bg-gradient-to-r from-green-600 to-blue-600 text-white transition-colors"
+                  className="w-[30%] p-2 md:text-[1rem] text-[.8rem] rounded-md bg-gradient-to-r from-green-600 to-blue-600 text-white transition-colors"
                   onClick={() => router.push(`/profile/jobs_posted/applications/${job.job_id}`)}
                 >
                   View Applications
                 </button>
                 <button
-                  className="py-2 px-5 rounded-md bg-gradient-to-r from-yellow-600 to-orange-600 text-white transition-colors"
+                  className="py-2 px-2 w-[30%] md:text-[1rem] text-[.8rem] rounded-md bg-gradient-to-r from-yellow-600 to-orange-600 text-white transition-colors"
                   onClick={() => handleEditClick(job)}
                 >
                   Edit Job
